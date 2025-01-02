@@ -14,8 +14,15 @@ builder.Services.AddFastEndpoints();
 
 // Add authorization services (optional, if needed)
 builder.Services.AddAuthorization();
-
-var app = builder.Build();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin() // Allow all origins
+               .AllowAnyHeader() // Allow any header
+               .AllowAnyMethod(); // Allow any HTTP method
+    });
+}); var app = builder.Build();
 app.Use(async (context, next) =>
 {
     if (context.Request.Path == "/")
@@ -32,7 +39,7 @@ app.UseFastEndpoints();
 // Enable HTTPS redirection and static files
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseCors("AllowAll");
 // Configure routing and authorization
 app.UseRouting();
 app.UseAuthorization();

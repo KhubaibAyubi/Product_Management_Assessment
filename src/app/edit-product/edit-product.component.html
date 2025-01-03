@@ -1,0 +1,46 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+
+  <!-- Form Card -->
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+
+    <!-- Form Heading -->
+    <h2 class="text-2xl font-semibold text-center text-gray-900 mb-6">Edit Product</h2>
+
+
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="max-w-lg mx-auto">
+    <div class="mb-5">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+      <input formControlName="name" type="text" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+      <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+        <div *ngIf="productForm.get('name')?.hasError('required')">Name is required.</div>
+      </div>
+    </div>
+  
+    <div class="mb-5">
+      <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+      <textarea formControlName="description" id="description" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required></textarea>
+   <!-- Error message for description -->
+   <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-red-500 text-sm mt-1">
+    <div *ngIf="productForm.get('description')?.hasError('required')">Description is required.</div>
+  </div>
+    </div>
+  
+    <div class="mb-5">
+      <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+      <input formControlName="price" type="number" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+     <!-- Error message for price -->
+     <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-red-500 text-sm mt-1">
+        <div *ngIf="productForm.get('price')?.hasError('required')">Price is required.</div>
+        <div *ngIf="productForm.get('price')?.hasError('min')">Price must be greater than 0.</div>
+      </div>
+    </div>
+  
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update Product</button>
+  
+    <div *ngIf="showSuccessNotification" class="mt-3 text-green-500">
+      Product updated successfully!
+    </div>
+  </form>
+  </div>
+  </div>

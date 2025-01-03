@@ -1,0 +1,62 @@
+
+<!-- Card Container -->
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+
+  <!-- Form Card -->
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+
+    <!-- Form Heading -->
+    <h2 class="text-2xl font-semibold text-center text-gray-900 mb-6">Create Product</h2>
+
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="max-w-sm mx-auto">
+    <div class="mb-5">
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+
+      <input type="text" id="name" formControlName="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your Name" required />
+  <!-- Error message for name -->
+  <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-red-500 text-sm mt-1">
+    <div *ngIf="productForm.get('name')?.hasError('required')">Name is required.</div>
+  </div>
+    </div>
+    <div class="md-5">
+        <label for="createdDate" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Created Date</label>
+        <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+            </svg>
+
+          </div>
+          <input datepicker id="default-datepicker" type="text" formControlName="createdDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+     </div>
+    <div class="mb-5">
+      <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+      <textarea
+      id="description"
+      formControlName="description"
+      rows="4"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      required
+    ></textarea>
+    <!-- Error message for description -->
+    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-red-500 text-sm mt-1">
+        <div *ngIf="productForm.get('description')?.hasError('required')">Description is required.</div>
+      </div>
+    </div>
+    <div class="mb-5">
+        <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+        <input type="number" id="price" formControlName="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required />
+     <!-- Error message for price -->
+     <div *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.touched" class="text-red-500 text-sm mt-1">
+        <div *ngIf="productForm.get('price')?.hasError('required')">Price is required.</div>
+        <div *ngIf="productForm.get('price')?.hasError('min')">Price must be greater than 0.</div>
+      </div>
+    </div>
+     
+    
+    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+  </form>
+</div>
+</div>
+  <div *ngIf="showSuccessNotification" class="fixed top-0 right-0 m-4 p-4 bg-green-500 text-white rounded-lg shadow-md">
+    Product added successfully!
+  </div>
